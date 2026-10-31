@@ -1,0 +1,46 @@
+# This workflow will run when changes are detected in the `main` branch, which
+# must include an update to the `VERSION` file. The workflow can also be
+# manually triggered by a repository maintainer. The most recent commit on the
+# `main` branch will be tagged with the semantic version from `VERSION` and a
+# GitHub release is created with the release notes from `CHANGELOG.md`.
+name: Publish new release of custom actions
+
+on:
+  push:
+    branches: [ main ]
+    paths: VERSION
+  workflow_dispatch:
+
+jobs:
+
+  publish_actions:
+    runs-on: ubuntu-latest
+    permissions:
+      # write permission is required to create a GitHub release
+      contents: write
+      id-token: write
+      packages: write
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout harmony-cicd-tools repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Extract semantic version number
+        run: echo "semantic_version=$(cat VERSION)" >> $GITHUB_ENV
+
+      - name: Extract release version notes
+        uses: ./actions/release-notes-extractor
+        with:
+          changelog: CHANGELOG.md
+
+      - name: Publish GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          body: ${{ env.RELEASE_NOTES }}
+          commit: main
+          name: Version ${{ env.semantic_version }}
+          tag: ${{ env.semantic_version }}

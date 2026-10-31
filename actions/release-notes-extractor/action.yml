@@ -1,0 +1,21 @@
+name: "Release Notes Extractor"
+description: >
+  Obtains the release notes for the most recent release stored in a
+  CHANGELOG.md file and assigns those nots to the RELEASE_NOTES environment
+  variable. The default location for the release notes file is CHANGELOG.md
+  in the root of the repository.
+inputs:
+  changelog:
+    description: "File path of CHANGELOG file relative to repository root"
+    required: false
+    default: "CHANGELOG.md"
+runs:
+  using: "composite"
+  steps:
+    - name: "Read CHANGELOG file."
+      shell: bash
+      run: |
+        version_release_notes=$("${{ github.action_path }}/extract-release-notes.sh" ${{ inputs.changelog }})
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        echo "${version_release_notes}" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV

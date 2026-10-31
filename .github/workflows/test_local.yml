@@ -1,0 +1,14 @@
+name: Local testing of custom actions
+on: push # act can trigger this event manually
+
+jobs:
+  test-release-notes-extractor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Test Release Note Extractor
+        uses: ./actions/release-notes-extractor
+        with:
+          changelog: ./actions/release-notes-extractor/sample_CHANGELOG.md
