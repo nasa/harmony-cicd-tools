@@ -22,6 +22,11 @@ fi
 
 CHANGELOG_FILE="$1"
 
+if [ ! -f "$CHANGELOG_FILE" ]; then
+	echo "Error: CHANGELOG file does not exist at given path."
+	exit 1
+fi
+
 ## captures versions
 ## >## v1.0.0
 ## >## [v1.0.0]
