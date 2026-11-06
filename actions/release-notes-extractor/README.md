@@ -10,15 +10,15 @@ This action can be placed in a workflow as follows:
 ```yaml
 jobs:
   my-fancy-job:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v7
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
 
-    - name: Extract release notes
-      uses: nasa/harmony-cicd-tools/release-notes-extractor@v1
-      with:
-        changelog: ./path/to/CHANGELOG.md
+      - name: Extract release notes
+        uses: nasa/harmony-cicd-tools/actions/release-notes-extractor@v1
+        with:
+          changelog: ./path/to/CHANGELOG.md
 ```
 
 This action will create an environment variable `RELEASE_NOTES`, which can be
