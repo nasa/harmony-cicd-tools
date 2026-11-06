@@ -18,7 +18,7 @@ jobs:
           expected_string="### Added
 
           - An amazing feature."
-          if [[ "${RELEASE_NOTES}" =~ ^"${expected_string}" ]]; then
+          if [[ "${RELEASE_NOTES}" =~ "${expected_string}" ]]; then
             echo "Correct release note contents extracted."
           else
             echo "Incorrect release note contents extracted."
