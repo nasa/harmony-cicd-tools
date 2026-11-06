@@ -18,7 +18,7 @@ runs:
         ACTION_PATH: ${{ github.action_path }}
         CHANGELOG: ${{ inputs.changelog }}
       run: |
-        version_release_notes=$("${{ github.action_path }}/extract-release-notes.sh" "${{ inputs.changelog }}")
+        version_release_notes=$("$ACTION_PATH/extract-release-notes.sh" "$CHANGELOG")
         echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
         echo "${version_release_notes}" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
