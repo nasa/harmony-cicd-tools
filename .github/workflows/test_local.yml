@@ -1,0 +1,26 @@
+name: Local testing of custom actions
+on: push # act can trigger this event manually
+
+jobs:
+  test-release-notes-extractor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Test Release Note Extractor
+        uses: ./actions/release-notes-extractor
+        with:
+          changelog: ./actions/release-notes-extractor/sample_CHANGELOG.md
+
+      - name: Check output from Release Note Extractor
+        run: |
+          expected_string="### Added
+
+          - An amazing feature."
+          if [[ "${RELEASE_NOTES}" =~ "${expected_string}" ]]; then
+            echo "Correct release note contents extracted."
+          else
+            echo "Incorrect release note contents extracted."
+            exit 1
+          fi
