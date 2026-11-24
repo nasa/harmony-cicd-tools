@@ -51,7 +51,8 @@ will also be created using the latest release notes from `CHANGELOG.md`.
 
 ## Versioning:
 
-This repository follows semantic versioning `major.minor.patch`.
+This repository follows semantic versioning `major.minor.patch`. The version
+number has a leading "v", e.g.: "v1.2.3".
 
 * Major versions - for breaking changes.
 * Minor versions - for new, backwards-compatible, features.
