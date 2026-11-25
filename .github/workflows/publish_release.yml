@@ -44,3 +44,13 @@ jobs:
           commit: main
           name: "Harmony CI/CD Tools ${{ env.semantic_version }}"
           tag: ${{ env.semantic_version }}
+
+      - name: Add or move major and minor version tags
+        run: |
+          FULL_SEMANTIC_VERSION="${{ env.semantic_version }}"
+          MAJOR_VERSION_TAG=${FULL_SEMANTIC_VERSION%%.*}
+          MINOR_VERSION_TAG=${FULL_SEMANTIC_VERSION%.*}
+          git fetch --force origin "refs/tags/${FULL_SEMANTIC_VERSION}:refs/tags/${FULL_SEMANTIC_VERSION}"
+          git tag --force "${MAJOR_VERSION_TAG}" "${FULL_SEMANTIC_VERSION}"
+          git tag --force "${MINOR_VERSION_TAG}" "${FULL_SEMANTIC_VERSION}"
+          git push --force origin "refs/tags/${MINOR_VERSION_TAG}" "refs/tags/${MAJOR_VERSION_TAG}"
