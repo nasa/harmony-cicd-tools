@@ -42,5 +42,5 @@ jobs:
         with:
           body: ${{ env.RELEASE_NOTES }}
           commit: main
-          name: Version ${{ env.semantic_version }}
+          name: "Harmony CI/CD Tools ${{ env.semantic_version }}"
           tag: ${{ env.semantic_version }}
