@@ -51,7 +51,8 @@ will also be created using the latest release notes from `CHANGELOG.md`.
 
 ## Versioning:
 
-This repository follows semantic versioning `major.minor.patch`.
+This repository follows semantic versioning `major.minor.patch`. The version
+number has a leading "v", e.g.: "v1.2.3".
 
 * Major versions - for breaking changes.
 * Minor versions - for new, backwards-compatible, features.
@@ -59,3 +60,20 @@ This repository follows semantic versioning `major.minor.patch`.
 
 The semantic version of this repository applies across all custom actions at
 the time of the commit being tagged.
+
+### Major and minor version tags:
+
+The CI/CD workflow for publishing releases from this repository will ensure
+that the latest release is also tagged with a major version and a minor
+version. For example: v1.2.3 will be tagged with "v1.2.3", and also "v1" and
+"v1.2". This ensures that workflows using actions from this repository can pin
+to a major or minor version, and automatically pull in non-breaking changes
+without having to update the tag referred to in their own CI/CD.
+
+As a consequence, the major and minor tags will be moved from previous commits
+to newer ones. Developers on this repository can ensure their local copy of the
+repository has tags on the correct commits with the following command:
+
+```
+git pull --tags --force
+```
